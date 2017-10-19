@@ -53,7 +53,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BeeCollision.cs" />
      <Compile Include="Assets\Scripts\BeeController.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\FlowerController.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\SkyController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
