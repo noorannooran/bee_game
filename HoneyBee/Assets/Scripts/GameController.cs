@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement; //access scene
 public class GameController : MonoBehaviour {
 
 	[SerializeField]
+	GameObject enemyBee;
+	[SerializeField]
 	Text livesLabel;
 	[SerializeField]
 	Text scoreLabel;
@@ -18,37 +20,12 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	Button resetBtn;
 
-	//private variables
-	private int _score = 0;
-	private int _lives = 3;
 
-	//public getters and setters
-	public int Score {
-		get{ return _score; }
-		set {
-			_score = value;
-			//update UI
-			scoreLabel.text = "Nectar: " + _score + " mL";
-		}
-	}
-	public int Lives{
-		get{ return _lives; }
-		set{_lives = value;
-			//check if game over
-			if (_lives <= 0) {
-				//game over
-				gameOver();
-			} else {
-				//update UI
-				livesLabel.text = "Stingers: " + _lives;
-			}
-		}
-	}
 	//function to initalize UI
 	private void initialize(){
 	//disappear labels, reset values
-		Score = 0;
-		Lives = 3;
+		Player.Instance.Score = 0;
+		Player.Instance.Lives = 3;
 
 		//disable game over label
 		gameOverLabel.gameObject.SetActive (false);
@@ -61,13 +38,17 @@ public class GameController : MonoBehaviour {
 		livesLabel.gameObject.SetActive(true);
 		//enable score label
 		scoreLabel.gameObject.SetActive(true);
+
+		//add enemy
+		StartCoroutine("AddEnemy");
 	
 	}
-	private void gameOver(){
+	public void gameOver(int score){
 		//enable game over label
 		gameOverLabel.gameObject.SetActive (true);
 		//enable high score label
 		highScoreLabel.gameObject.SetActive(true);
+		highScoreLabel.text = "High Score: " + Player.Instance.HighScore;
 		//enable reset button
 		resetBtn.gameObject.SetActive(true);
 
@@ -76,9 +57,14 @@ public class GameController : MonoBehaviour {
 		//disable score label
 		scoreLabel.gameObject.SetActive(false);
 	}
+	public void updateUI(){
+		scoreLabel.text = "Nectar: " + Player.Instance.Score + " mL";
+		livesLabel.text = "Stingers: " + Player.Instance.Lives;
+	}
 
 	// Use this for initialization
 	void Start () {
+		Player.Instance.GCtrl = this; //connect to player gCtrl
 		initialize ();
 	}
 	
@@ -90,5 +76,12 @@ public class GameController : MonoBehaviour {
 	public void ResetBtnClick(){
 		//reload scene when button is clicked
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+	}
+	private IEnumerator AddEnemy(){
+		//adds enemy bees every X seconds
+		int time = Random.Range(3,10); //random time
+		yield return new WaitForSeconds ((float) time); //return 
+		Instantiate(enemyBee); //create enemy bee
+		StartCoroutine ("AddEnemy"); //start another coroutine
 	}
 }
