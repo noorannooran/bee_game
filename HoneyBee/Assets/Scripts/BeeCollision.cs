@@ -2,6 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Nooran El-Sherif 100695733
+ * BeeCollision
+ * Last Modified By: Nooran El-Sherif 
+ * Date Last Modified: October 20, 2017
+ * Description: Controls What happens on Player Collisions
+ *
+ *Revision History:
+ * October 19, 2017:
+ * Bee Collision added
+ * - on collision with flower : log says yummy
+ * -----------------------------------------
+ * - Reference to Game Controller added
+ * - update score on collision with flower
+ * - on collision with enemy: log says ouch
+ * - update lives on collision with enemy
+ * -----------------------------------------
+ * - instantiate droplet animation on collision with flower
+ * - added co-routine to "blink" on collision with enemy bee
+ * ---------------------------------
+ * October 20, 2017:
+ * - test if player lives > 0 in order for collision to add points
+ * - added audio for flower sound and enemy sound
+ * --------------------
+ * Header Added
+ * Some comments added
+ */
+
 public class BeeCollision : MonoBehaviour {
 
 	[SerializeField]
@@ -9,9 +36,9 @@ public class BeeCollision : MonoBehaviour {
 	[SerializeField]
 	GameObject droplet; //access droplet animation
 	[SerializeField]
-	AudioSource _flowerSound;
+	AudioSource _flowerSound; //slurp audio file for when flower is collided
 	[SerializeField]
-	AudioSource _enemySound;
+	AudioSource _enemySound; //buzz enemy sound for when enemy is collided
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +49,7 @@ public class BeeCollision : MonoBehaviour {
 	void Update () {
 		
 	}
+	//controls what happens on collisions with flower and enemy
 	public void OnTriggerEnter2D(Collider2D other){
 		if (Player.Instance.Lives > 0) {
 			if (other.gameObject.tag.Equals ("flower")) {
@@ -55,8 +83,8 @@ public class BeeCollision : MonoBehaviour {
 
 
 	}
+	//makes the bee become transparent and then opaque
 	private IEnumerator Blink(){
-		//makes the bee "blink"/ become transparent
 		Color c;
 		Renderer renderer = gameObject.GetComponent<Renderer> ();
 		//repeat two times

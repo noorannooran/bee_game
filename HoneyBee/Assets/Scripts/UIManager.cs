@@ -5,6 +5,22 @@ using UnityEngine;
 using UnityEngine.UI; //access UI
 using UnityEngine.SceneManagement; //access scene
 
+/* Nooran El-Sherif 100695733
+ * UIManager
+ * Last Modified By: Nooran El-Sherif 
+ * Date Last Modified: October 20, 2017
+ * Description: Controls the game UI elements
+ * 
+ * Revision History:
+ * October 20, 2017
+ * - UIManager added
+ * - UI control migrated from gamecontroller
+ * - in Start() set Player.Instance.Ui = this
+ * -----------------------
+ * Header Added
+ * Comments added for methods
+ */
+
 public class UIManager : MonoBehaviour {
 
 	[SerializeField]
@@ -25,6 +41,7 @@ public class UIManager : MonoBehaviour {
 		//display start UI elements
 		gameStart();
 	}
+	//resets all labels at game start
 	public void gameStart()
 	{
 		//disable game over label
@@ -37,6 +54,7 @@ public class UIManager : MonoBehaviour {
 		//enable score label
 		scoreLabel.gameObject.SetActive(true);
 	}
+	//sets game over labels to appear at game over
 	public void gameOver()
 	{
 		//enable game over label
@@ -49,6 +67,7 @@ public class UIManager : MonoBehaviour {
 		//disable score label
 		scoreLabel.gameObject.SetActive(false);
 	}
+	//updates the UI with new score and new lives
 	public void updateUI()
 	{
 		if (scoreLabel != null && livesLabel != null) {
@@ -58,8 +77,8 @@ public class UIManager : MonoBehaviour {
 			livesLabel.text = "Stingers: " + Player.Instance.Lives;
 		}
 	}
+	//reload scene when button is clicked
 	public void ResetBtnClick(){
-		//reload scene when button is clicked
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 	// Use this for initialization

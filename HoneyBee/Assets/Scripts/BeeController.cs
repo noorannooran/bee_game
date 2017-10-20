@@ -2,6 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Nooran El-Sherif 100695733
+ * Bee Controller
+ * Last Modified By: Nooran El-Sherif 
+ * Date Last Modified: October 20, 2017
+ * Description: Controls the movement of the Player's Bee
+ * 
+ * Revision History:
+ * October 18, 2017:
+ * Bee controller added
+ * - methods Start() Update() and CheckBounds() added
+ * --------------------
+ * October 20, 2017:
+ * Header Added
+ * Some comments added
+ */
+
 public class BeeController : MonoBehaviour {
 
 	[SerializeField] //accessible through unity
@@ -9,15 +25,15 @@ public class BeeController : MonoBehaviour {
 
 	//boundaries for bee
 	[SerializeField]
-	private float leftX;
+	private float leftX; //left boundary
 	[SerializeField]
-	private float rightX;
+	private float rightX; //right boundary
 	[SerializeField]
-	private float topY;
+	private float topY;  //top boundary
 	[SerializeField]
-	private float bottomY;
+	private float bottomY; //bottom boundary
 
-	//private fields
+	//private variables
 	private Transform _transform;
 	private Vector2 _currentPos;
 
@@ -27,7 +43,7 @@ public class BeeController : MonoBehaviour {
 		_currentPos = _transform.position;
 	}
 	
-	// Update is called once per frame
+	// Updates position of the player bee
 	void Update () {
 		_currentPos = _transform.position; //get current position
 
@@ -52,17 +68,21 @@ public class BeeController : MonoBehaviour {
 		//update position
 		_transform.position = _currentPos;
 	}
+	//checks if the gameObject is within the boundaries of the frame
 	private void CheckBounds(){
-		//check if the position of the bee is out of bounds
+		//left boundary
 		if (_currentPos.x < leftX) {
 			_currentPos.x = leftX;
 		}
+		//right boundary
 		if (_currentPos.x > rightX) {
 			_currentPos.x = rightX;
 		}
+		//top boundary
 		if (_currentPos.y > topY) {
 			_currentPos.y = topY;
 		}
+		//bottom boundary
 		if (_currentPos.y < bottomY) {
 			_currentPos.y = bottomY;
 		}

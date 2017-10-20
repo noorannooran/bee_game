@@ -2,6 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Nooran El-Sherif 100695733
+ * Sky Controller
+ * Last Modified By: Nooran El-Sherif 
+ * Date Last Modified: October 20, 2017
+ * Description: Controls the movement of the Background
+ * 
+ * Revision History:
+ * October 18, 2017:
+ * Sky controller added
+ * - methods Start() Update() and Reset() added
+ * -----------------
+ * October 20, 2017:
+ * Header Added
+ */
+
 public class SkyController : MonoBehaviour {
 	//controls the movement of the sky background
 

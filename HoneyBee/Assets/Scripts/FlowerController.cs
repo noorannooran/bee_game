@@ -1,19 +1,41 @@
 ﻿using UnityEngine;
 
+/* Nooran El-Sherif 100695733
+ * FlowerController
+ * Last Modified By: Nooran El-Sherif 
+ * Date Last Modified: October 20, 2017
+ * Description: Controls the behaviour of Flower prefab
+ * 
+ * Revision History:
+ * October 18, 2017:
+ * FlowerController class created
+ * - serialized fields added for speed, start X&Y end X&Y
+ * - reset added - move enemy bee to beginning, randomize speed
+ * - update updates the position of the bee using the speed
+ * - reset randomizes where on the Y axis the flower appears
+ * -------------------
+ * October 19, 2017:
+ * - deleted unnecessary whitespace
+ * -------------------
+ * October 20, 2017
+ * Header Added
+ * Some comments added
+ */
+
 public class FlowerController : MonoBehaviour {
 
 
 	//Public variables
 	[SerializeField]
-	private float speed = 5f;
+	private float speed = 5f; //speed of flower
 	[SerializeField]
-	private float startY = 251f;
+	private float startY = 251f; //starting Y position
 	[SerializeField]
-	private float endY = -157;
+	private float endY = -157; //ending Y position
 	[SerializeField]
-	private float startX;
+	private float startX; //starting X position
 	[SerializeField]
-	private float endX;
+	private float endX; //ending X position
 
 
 	//private variables
@@ -30,7 +52,7 @@ public class FlowerController : MonoBehaviour {
 
 
 
-	// Update is called once per frame
+	// Updates the current position, checks if within boundary
 	void Update () {
 		_currentPos = _transform.position; //set current position
 
@@ -47,10 +69,10 @@ public class FlowerController : MonoBehaviour {
 		_transform.position = _currentPos;
 
 	}
-		
-	public void Reset(){
-		//reset position of flower to right of screen
 
+	//reset position of flower to right of screen
+	public void Reset(){
+		
 		float y = Random.Range (startY, endY); //randomize where flower appears on y axis
 
 		_currentPos = new Vector2 (endX + Random.Range(100,500), y); //set current position
