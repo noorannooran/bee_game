@@ -21,23 +21,23 @@ public class Player {
 	private Player(){ }
 	
 	//private variables
-	private GameController gCtrl;
+	private UIManager ui;
 	private int _score = 0;
 	private int _lives = 3;
-	private int _highScore = 0;
 
 	//public getters and setters
-	public GameController GCtrl{
-			get{ return gCtrl; }
-			set{ gCtrl = value; }
+	public UIManager Ui{
+			get{ return ui; }
+			set{ ui = value; }
 		}
 	public int Score {
 			get{ return _score; }
 			set {
+			if (_lives >= 0) {
 				_score = value;
 				//update UI
-
-				gCtrl.updateUI();
+				ui.updateUI ();
+			}
 			}
 		}
 	public int Lives{
@@ -45,23 +45,21 @@ public class Player {
 			set{_lives = value;
 				//check if game over
 				if (_lives <= 0) {
-					//game over
-				if (_score > _highScore)
-					_highScore = _score;
-					gCtrl.gameOver(_highScore);
-				} else {
+				//game over   
+				ui.gameOver();
+			} else {
 					//update UI
-
-					gCtrl.updateUI();
+					ui.updateUI();
 				}
 			}
 		}
-	public int HighScore{
-		get{ return _highScore; }
-		//set{ _highScore = value; }
+
 	}
+	
 
 
 
 
-}
+
+
+

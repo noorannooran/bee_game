@@ -8,6 +8,10 @@ public class BeeCollision : MonoBehaviour {
 	GameController gameController; //reference to gamecontroller script
 	[SerializeField]
 	GameObject droplet; //access droplet animation
+	[SerializeField]
+	AudioSource _flowerSound;
+	[SerializeField]
+	AudioSource _enemySound;
 
 	// Use this for initialization
 	void Start () {
@@ -19,28 +23,33 @@ public class BeeCollision : MonoBehaviour {
 		
 	}
 	public void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.tag.Equals ("flower")) {
-			//collision with flower
-			Debug.Log ("Yummy!\n");
-			//instantiate droplet animation
-			Instantiate(droplet).GetComponent<Transform>().position 
-				= other.gameObject.GetComponent<Transform>().position; //put in same position as flower
-			//disappear flower -- reset
-			other.gameObject.GetComponent<FlowerController>().Reset();
-			//update score
-			Player.Instance.Score+=1;
-		}
-		else if (other.gameObject.tag.Equals ("enemy")) {
-			//collision with enemy
-			Debug.Log ("Ouch!\n");
-			//disappear enemy -- reset
-			other.gameObject.GetComponent<EnemyController>().Reset();
-			//update lives
-			Player.Instance.Lives-=1;
+		if (Player.Instance.Lives > 0) {
+			if (other.gameObject.tag.Equals ("flower")) {
+				//collision with flower
+				Debug.Log ("Yummy!\n");
+				if (_flowerSound != null)
+					_flowerSound.Play ();
+				//instantiate droplet animation
+				Instantiate (droplet).GetComponent<Transform> ().position 
+				= other.gameObject.GetComponent<Transform> ().position; //put animation in same position as flower
+				//disappear flower -- reset
+				other.gameObject.GetComponent<FlowerController> ().Reset ();
+				//update score
+				Player.Instance.Score += 1;
+			} else if (other.gameObject.tag.Equals ("enemy")) {
+				//collision with enemy
+				Debug.Log ("Ouch!\n");
+				if (_enemySound != null)
+					_enemySound.Play ();
+				//disappear enemy -- reset
+				other.gameObject.GetComponent<EnemyController> ().Reset ();
+				//update lives
+				Player.Instance.Lives -= 1;
 
-			//start coroutine to change transparency of bee
-			StartCoroutine("Blink");
+				//start coroutine to change transparency of bee
+				StartCoroutine ("Blink");
 		
+			}
 		}
 
 
